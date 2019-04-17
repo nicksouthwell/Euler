@@ -20,6 +20,14 @@ public class PrimeFactors implements Iterable<Integer> {
             }
         }
         return factors;
+        /*
+            primes = new PrimeNumbers().iterator()
+            while unfactored != 1
+                prime = primes.next()
+                while (unfactored % prime == 0)
+                    unfactored /= prime
+                    factors.add(prime)
+         */
     }
     public void merge(PrimeFactors other) {
 
