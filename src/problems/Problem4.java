@@ -3,8 +3,8 @@ package problems;
 public class Problem4 implements Problem {
     @Override
     public String getDescription() {
-        return "Problem 4\n" +
-                "---------\n" +
+        return "Problem 4 - Largest palindrome product\n" +
+                "--------------------------------------\n" +
                 "A palindromic number reads the same both ways. The largest palindrome made from the product\n" +
                 "of two 2-digit numbers is 9009 = 91 × 99.\n" +
                 "\n" +

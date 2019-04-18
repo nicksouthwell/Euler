@@ -26,7 +26,38 @@ public class PrimeFactors implements Iterable<Integer> {
     }
 
     public void merge(PrimeFactors other) {
+        for (Map.Entry<Integer, Integer> countedPrime : other._factors.entrySet()) {
+            Integer prime = countedPrime.getKey();
+            Integer count = countedPrime.getValue();
+            Integer existingCount = _factors.get(prime);
+            Integer newCount = (existingCount != null ? Math.max(existingCount, count) : count);
+            _factors.put(prime, newCount);
+        }
+    }
 
+    @Override
+    public Iterator<Integer> iterator() {
+        return new Iterator<Integer>() {
+            private Iterator<Map.Entry<Integer, Integer>> primes = _factors.entrySet().iterator();
+            private Integer prime = null;
+            private Integer count = 0;
+
+            @Override
+            public boolean hasNext() {
+                return (count != 0 || primes.hasNext());
+            }
+
+            @Override
+            public Integer next() {
+                if (count == 0) {
+                    Map.Entry<Integer, Integer> primeEntry = primes.next();
+                    prime = primeEntry.getKey();
+                    count = primeEntry.getValue();
+                }
+                --count;
+                return prime;
+            }
+        };
     }
 
     private void add(BigInteger prime) {
@@ -36,20 +67,5 @@ public class PrimeFactors implements Iterable<Integer> {
             _factors.put(intValue, count + 1);
         else
             _factors.put(intValue, 1);
-    }
-
-    @Override
-    public Iterator<Integer> iterator() {
-        return new Iterator<Integer>() {
-            @Override
-            public boolean hasNext() {
-                return false;
-            }
-
-            @Override
-            public Integer next() {
-                return null;
-            }
-        };
     }
 }
