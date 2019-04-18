@@ -14,23 +14,28 @@ public class PrimeFactors implements Iterable<Integer> {
 
     public static PrimeFactors of(BigInteger i) {
         PrimeFactors factors = new PrimeFactors();
+        Iterator<BigInteger> primes = new PrimeNumbers().iterator();
         for (BigInteger unfactored = i; !unfactored.equals(BigInteger.ONE); ) {
-            for (BigInteger prime : new PrimeNumbers()) {
-                //
+            BigInteger prime = primes.next();
+            while (unfactored.remainder(prime).equals(BigInteger.ZERO)) {
+                unfactored = unfactored.divide(prime);
+                factors.add(prime);
             }
         }
         return factors;
-        /*
-            primes = new PrimeNumbers().iterator()
-            while unfactored != 1
-                prime = primes.next()
-                while (unfactored % prime == 0)
-                    unfactored /= prime
-                    factors.add(prime)
-         */
     }
+
     public void merge(PrimeFactors other) {
 
+    }
+
+    private void add(BigInteger prime) {
+        Integer intValue = prime.intValue();
+        Integer count = _factors.get(intValue);
+        if (count != null)
+            _factors.put(intValue, count + 1);
+        else
+            _factors.put(intValue, 1);
     }
 
     @Override
