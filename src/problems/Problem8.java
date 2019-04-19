@@ -67,4 +67,12 @@ public class Problem8 implements Problem {
         }
         return greatestProduct;
     }
+
+    private BigInteger computeProduct(String digits) {
+        BigInteger product = BigInteger.ONE;
+        for (char digit : digits.toCharArray()) {
+            product = product.multiply(new BigInteger(String.valueOf(digit)));
+        }
+        return product;
+    }
 }
