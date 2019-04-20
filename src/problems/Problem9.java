@@ -1,6 +1,6 @@
 package problems;
 
-import java.math.BigInteger;
+import common.Squares;
 
 public class Problem9 implements Problem {
     @Override
@@ -16,19 +16,19 @@ public class Problem9 implements Problem {
     }
 
     @Override
-    public BigInteger solution() {
-        /*
-        restricting the search set
-        a + b is always > c
-        c is always > a
-        c is always > b
-        Build a list of squares
-        for c = 500^2 down to 1
-            for each find sum candidates a, b where a + b = 1000 - c
-                if (a + b + c = 1000)
-                    return a * b * cWa
-         */
-        BigInteger solution = BigInteger.ONE;
-        return solution;
+    public Integer solution() {
+        Squares squares = Squares.to(500);
+        for (int c = 500; c >= 1; c--) {        // c < a + b  and  a + b + c = 1000
+            int cSquared = squares.of(c);
+            int aMax = (1000 - c) / 2;          // only consider cases where a < b
+            for (int a = 1; a <= aMax; a++) {
+                int b = squares.rootOf(cSquared - squares.of(a));
+                if (b != 0 && a + b + c == 1000) {
+                    System.out.println("a=" + a + ",b=" + b + ",c=" + c);
+                    return a * b * c;
+                }
+            }
+        }
+        return 0;
     }
 }
