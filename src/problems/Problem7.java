@@ -16,7 +16,7 @@ public class Problem7 implements Problem {
 
     @Override
     public BigInteger solution() {
-        int count = 10001;
+        int count = 10_001;
         for (BigInteger prime : new PrimeNumbers()) {
             if (--count == 0)
                 return prime;

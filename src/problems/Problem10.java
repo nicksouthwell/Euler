@@ -17,7 +17,7 @@ public class Problem10 implements Problem {
     @Override
     public BigInteger solution() {
         BigInteger sumOfPrimes = BigInteger.ZERO;
-        BigInteger maxPrime = BigInteger.valueOf(2000000);
+        BigInteger maxPrime = BigInteger.valueOf(2_000_000);
         for (BigInteger prime : new PrimeNumbers()) {
             if (prime.compareTo(maxPrime) > 0)
                 break;

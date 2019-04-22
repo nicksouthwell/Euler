@@ -23,7 +23,7 @@ public class Problem4 implements Problem {
     }
 
     private int makePalindrome(int i) {
-        String firstHalf = new Integer(i).toString();
+        String firstHalf = Integer.toString(i);
         String palindrome = firstHalf + new StringBuilder(firstHalf).reverse().toString();
         return Integer.parseInt(palindrome);
     }
