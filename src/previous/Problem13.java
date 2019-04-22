@@ -104,11 +104,12 @@ public class Problem13 {
                     "53503534226472524250874054075591789781264330331690";
 
     public static String largeSum(int i) {
-        HugeNumber sum = new HugeNumber();
-        for (String number : numbers.split("\\s+")) {
-            System.out.println(number);
-            sum = sum.add(new HugeNumber(number));
-        }
-        return sum.toString();
+//        HugeNumber sum = new HugeNumber();
+//        for (String number : numbers.split("\\s+")) {
+//            System.out.println(number);
+//            sum = sum.add(new HugeNumber(number));
+//        }
+//        return sum.toString();
+        return "hello";
     }
 }
