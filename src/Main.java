@@ -3,7 +3,7 @@ import problems.Problem;
 public class Main {
 
     public static void main(String[] args) {
-        Problem problem = loadProblem(12);
+        Problem problem = loadProblem(13);
         System.out.println(problem.getDescription());
         System.out.println();
         System.out.print("Computing...");
