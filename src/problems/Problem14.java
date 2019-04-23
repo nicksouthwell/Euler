@@ -1,7 +1,7 @@
 package problems;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Problem14 implements Problem {
     @Override
@@ -21,11 +21,11 @@ public class Problem14 implements Problem {
     }
 
     @Override
-    public Integer solution() {
-        Integer solution = 0;
-        int longestChainLength = 0;
-        for (int n = 1; n < 1_000_000; n++) {
-            int chainLength = collatzChainLength(n);
+    public Long solution() {
+        Long solution = 0L;
+        long longestChainLength = 0L;
+        for (long n = 1; n < 1_000_000; n++) {
+            long chainLength = collatzChainLength(n);
             if (chainLength > longestChainLength) {
                 solution = n;
                 longestChainLength = chainLength;
@@ -34,30 +34,58 @@ public class Problem14 implements Problem {
         return solution;
     }
 
-    private Map<Integer, Integer> collatzChains = new TreeMap<>();
+    private CollatzChainCache cache = new CollatzChainCache();
 
-    {
-        collatzChains.put(1, 1);
-    }
+    long collatzChainLength(long n) {
+        Deque<Long> tempChain = new ArrayDeque<>();
 
-    int collatzChainLength(int n) {
-        Integer length = collatzChains.get(n);
-        if (length != null) {
-            return length;
+        while (!cache.contains(n)) {
+            tempChain.push(n);
+            n = nextCollatzTerm(n);
         }
 
-        length = 1 + collatzChainLength(nextCollatzTerm(n));
-        collatzChains.put(n, length);
-        return length;
+        long knownLength = cache.get(n);
+
+        while (!tempChain.isEmpty()) {
+            n = tempChain.pop();
+            knownLength++;
+            cache.put(n, knownLength);
+        }
+
+        return knownLength;
     }
 
-    private int nextCollatzTerm(int n) {
-        if (n == 1)
-            return 0;
+    private long nextCollatzTerm(long n) {
+        if (n == 1L)
+            return 0L;
 
-        if (n % 2 == 0)
-            return n / 2;
+        if (n % 2L == 0L)
+            return n / 2L;
 
-        return (3 * n) + 1;
+        return (3L * n) + 1L;
+    }
+
+    private static class CollatzChainCache {
+        private long[] collatzChainLengths = new long[1_000_000];
+
+        public CollatzChainCache() {
+            collatzChainLengths[0] = 1L;
+        }
+
+        public boolean contains(long n) {
+            return get(n) != 0;
+        }
+
+        public long get(long n) {
+            if (n > collatzChainLengths.length)
+                return 0L;
+            return collatzChainLengths[(int) n - 1];
+        }
+
+        public void put(long n, long length) {
+            if (n > collatzChainLengths.length)
+                return;
+            collatzChainLengths[(int) n - 1] = length;
+        }
     }
 }
