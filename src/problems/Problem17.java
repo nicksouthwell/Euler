@@ -1,5 +1,7 @@
 package problems;
 
+import common.TextBuilder;
+
 public class Problem17 implements Problem {
     @Override
     public String getDescription() {
@@ -20,29 +22,48 @@ public class Problem17 implements Problem {
         return sum;
     }
 
-    static int[] unitsLength = {
-            "".length(), "one".length(), "two".length(), "three".length(), "four".length(),
-            "five".length(), "six".length(), "seven".length(), "eight".length(), "nine".length()
-    };
-    static int[] teensLength = {
-            "ten".length(), "eleven".length(), "twelve".length(), "thirteen".length(), "fourteen".length(),
-            "fifteen".length(), "sixteen".length(), "seventeen".length(), "eighteen".length(), "nineteen".length()};
-    static int[] tensLength = {
-            "twenty".length(), "thirty".length(), "forty".length(),
-            "fifty".length(), "sixty".length(), "seventy".length(), "eighty".length(), "ninety".length()
-    };
+    private static String[] unitNames = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+    private static String[] teenNames = {"ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
+    private static String[] tenNames = {"", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
 
-    Integer numberLetterCount(int i) {
-        if (i < 10) {
-            return unitsLength[i];
-        } else if (i < 20) {
-            return teensLength[i - 10];
-        }
-        return tensLength(i);
+    private Integer numberLetterCount(int i) {
+        String numberAsText = numberAsText(i);
+        return numberAsText.replaceAll("\\s", "").length();
     }
 
-    private Integer tensLength(int i) {
-        int tens = i / 10;
-        return tensLength[tens - 2];
+    String numberAsText(int i) {
+        if (i == 1000) {
+            return "one thousand";
+        }
+
+        int hundreds = i / 100;
+        int hundreths = i % 100;
+
+        TextBuilder tb = new TextBuilder();
+        tb.appendWord(hundredsAsText(hundreds));
+        tb.appendWithConjunction("and", hundredthsAsText(hundreths));
+        return tb.toString();
+    }
+
+    private String hundredsAsText(int hundreds) {
+        if (hundreds == 0)
+            return "";
+
+        TextBuilder tb = new TextBuilder();
+        tb.appendWord(unitNames[hundreds]).appendWord("hundred");
+        return tb.toString();
+    }
+
+    private String hundredthsAsText(int hundredths) {
+        int tens = hundredths / 10;
+        int units = hundredths % 10;
+
+        TextBuilder tb = new TextBuilder();
+        if (tens == 1) {
+            tb.appendWord(teenNames[units]);
+        } else {
+            tb.appendWord(tenNames[tens]).appendWord(unitNames[units]);
+        }
+        return tb.toString();
     }
 }

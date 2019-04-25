@@ -9,53 +9,65 @@ class Problem17Test {
 
     @Test
     void units() {
-        assertNumberLetterCount("one", 1);
-        assertEquals("one".length(), problem.numberLetterCount(1));
-        assertEquals("two".length(), problem.numberLetterCount(2));
-        assertEquals(5, problem.numberLetterCount(3));
-        assertEquals(4, problem.numberLetterCount(4));
-        assertEquals(4, problem.numberLetterCount(5));
-        assertEquals(3, problem.numberLetterCount(6));
-        assertEquals(5, problem.numberLetterCount(7));
-        assertEquals(5, problem.numberLetterCount(8));
-        assertEquals(4, problem.numberLetterCount(9));
+        assertEquals("one", problem.numberAsText(1));
+        assertEquals("two", problem.numberAsText(2));
+        assertEquals("three", problem.numberAsText(3));
+        assertEquals("four", problem.numberAsText(4));
+        assertEquals("five", problem.numberAsText(5));
+        assertEquals("six", problem.numberAsText(6));
+        assertEquals("seven", problem.numberAsText(7));
+        assertEquals("eight", problem.numberAsText(8));
+        assertEquals("nine", problem.numberAsText(9));
     }
 
     @Test
     void teens() {
-        assertEquals(3, problem.numberLetterCount(10));
-        assertEquals(6, problem.numberLetterCount(11));
-        assertEquals(6, problem.numberLetterCount(12));
-        assertEquals(8, problem.numberLetterCount(13));
-        assertEquals(8, problem.numberLetterCount(14));
-        assertEquals(7, problem.numberLetterCount(15));
-        assertEquals(7, problem.numberLetterCount(16));
-        assertEquals(9, problem.numberLetterCount(17));
-        assertEquals(8, problem.numberLetterCount(18));
-        assertEquals(8, problem.numberLetterCount(19));
+        assertEquals("ten", problem.numberAsText(10));
+        assertEquals("eleven", problem.numberAsText(11));
+        assertEquals("twelve", problem.numberAsText(12));
+        assertEquals("thirteen", problem.numberAsText(13));
+        assertEquals("fourteen", problem.numberAsText(14));
+        assertEquals("fifteen", problem.numberAsText(15));
+        assertEquals("sixteen", problem.numberAsText(16));
+        assertEquals("seventeen", problem.numberAsText(17));
+        assertEquals("eighteen", problem.numberAsText(18));
+        assertEquals("nineteen", problem.numberAsText(19));
     }
 
     @Test
     void twentyToNinetyNoUnits() {
-        assertEquals(6, problem.numberLetterCount(20));
-        assertEquals(6, problem.numberLetterCount(30));
-        assertEquals(5, problem.numberLetterCount(40));
-        assertEquals(5, problem.numberLetterCount(50));
-        assertEquals(5, problem.numberLetterCount(60));
-        assertEquals(7, problem.numberLetterCount(70));
-        assertEquals(6, problem.numberLetterCount(80));
-        assertEquals(6, problem.numberLetterCount(90));
+        assertEquals("twenty", problem.numberAsText(20));
+        assertEquals("thirty", problem.numberAsText(30));
+        assertEquals("forty", problem.numberAsText(40));
+        assertEquals("fifty", problem.numberAsText(50));
+        assertEquals("sixty", problem.numberAsText(60));
+        assertEquals("seventy", problem.numberAsText(70));
+        assertEquals("eighty", problem.numberAsText(80));
+        assertEquals("ninety", problem.numberAsText(90));
     }
 
     @Test
     void twentyToNinetyWithUnits() {
-        assertEquals(9, problem.numberLetterCount(21));
-        assertEquals(9, problem.numberLetterCount(32));
-        assertEquals(8, problem.numberLetterCount(43));
-        assertEquals(8, problem.numberLetterCount(54));
-        assertEquals(8, problem.numberLetterCount(65));
-        assertEquals(8, problem.numberLetterCount(76));
-        assertEquals(8, problem.numberLetterCount(87));
-        assertEquals(8, problem.numberLetterCount(98));
+        assertEquals("twenty one", problem.numberAsText(21));
+        assertEquals("thirty two", problem.numberAsText(32));
+        assertEquals("forty three", problem.numberAsText(43));
+        assertEquals("fifty four", problem.numberAsText(54));
+        assertEquals("sixty five", problem.numberAsText(65));
+        assertEquals("seventy six", problem.numberAsText(76));
+        assertEquals("eighty seven", problem.numberAsText(87));
+        assertEquals("ninety eight", problem.numberAsText(98));
+    }
+
+    @Test
+    void hundreds() {
+        assertEquals("one hundred", problem.numberAsText(100));
+        assertEquals("one hundred and seven", problem.numberAsText(107));
+        assertEquals("seven hundred and fifty", problem.numberAsText(750));
+        assertEquals("five hundred and forty one", problem.numberAsText(541));
+    }
+
+    @Test
+    void thousands() {
+        assertEquals("one thousand", problem.numberAsText(1000));
     }
 }
