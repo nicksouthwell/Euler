@@ -89,6 +89,14 @@ class PrimeFactorsTest {
         assertEquals(List.of(2, 5, 5), iterateThrough(factors));
     }
 
+    @Test
+    void properDivisors() {
+        PrimeFactors factors = PrimeFactors.of(6);
+        List<Integer> divisors = factors.properDivisors();
+
+        assertEquals(List.of(1, 2, 3), divisors);
+    }
+
     private List<Integer> iterateThrough(PrimeFactors factors) {
         List<Integer> result = new ArrayList<>();
         for (java.lang.Integer factor : factors) {

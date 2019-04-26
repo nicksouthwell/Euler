@@ -1,9 +1,7 @@
 package common;
 
 import java.math.BigInteger;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class PrimeFactors implements Iterable<Integer> {
     public Map<Integer, Integer> _factors = new TreeMap<>();
@@ -33,6 +31,35 @@ public class PrimeFactors implements Iterable<Integer> {
             Integer newCount = (existingCount != null ? Math.max(existingCount, count) : count);
             _factors.put(prime, newCount);
         }
+    }
+
+    public List<Integer> properDivisors() {
+        ArrayList<Integer> divisors = new ArrayList<>();
+        divisors.add(1);
+
+        for (Map.Entry<Integer, Integer> factor : _factors.entrySet()) {
+            divisors.addAll(factorMultiples(factor, divisors));
+        }
+
+        return divisors;
+    }
+
+    private List<Integer> factorMultiples(Map.Entry<Integer, Integer> factor, ArrayList<Integer> values) {
+        ArrayList<Integer> multiples = new ArrayList<>();
+        int multiplier = 1;
+        for (int i = 1; i <= factor.getValue(); i++) {
+            multiplier *= factor.getKey();
+            multiples.addAll(multiplyList(values, multiplier));
+        }
+        return multiples;
+    }
+
+    private List<Integer> multiplyList(List<Integer> values, int multiplier) {
+        ArrayList<Integer> multiples = new ArrayList<>();
+        for (Integer value : values) {
+            multiples.add(value * multiplier);
+        }
+        return multiples;
     }
 
     @Override
