@@ -2,6 +2,8 @@ package problems;
 
 import java.math.BigInteger;
 
+import static common.BigIntegerUtils.factorial;
+
 public class Problem15 implements Problem {
     @Override
     public String getDescription() {
@@ -23,14 +25,5 @@ public class Problem15 implements Problem {
         BigInteger numerator = factorial(40);
         BigInteger denominator = factorial(20).multiply(factorial(20));
         return numerator.divide(denominator);
-    }
-
-    private BigInteger factorial(int i) {
-        BigInteger factorial = BigInteger.ONE;
-        while (i > 1) {
-            factorial = factorial.multiply(BigInteger.valueOf(i));
-            i--;
-        }
-        return factorial;
     }
 }
