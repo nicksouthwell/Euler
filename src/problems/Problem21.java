@@ -1,5 +1,9 @@
 package problems;
 
+import common.PrimeFactors;
+
+import java.util.List;
+
 public class Problem21 implements Problem {
     @Override
     public String getDescription() {
@@ -16,14 +20,28 @@ public class Problem21 implements Problem {
 
     @Override
     public Integer solution() {
-        // see problem 12 which figures out the number of divisors ... but not their values
-        // proper divisors can be derived from PrimeFactors
+        int sum = 0;
+        int[] known_ds = new int[10_000];
 
-        Integer sum = 0;
-        // for a = 2 to 9999
-        //   calculate and save b = sum(proper-divisors(a))  // b = d(a)
-        //   if b < a && d(b) == a
-        //     sum += (a + b)
+        System.out.println();
+        for (int a = 2; a < 10_000; a++) {
+            int b = sumProperDivisors(a);
+            known_ds[a] = b;
+            if (b < a && known_ds[b] == a) {
+                System.out.println("Found amicable pair: " + b + "," + a);
+                sum += (a + b);
+            }
+        }
+        return sum;
+    }
+
+    private int sumProperDivisors(int a) {
+        PrimeFactors factors = PrimeFactors.of(a);
+        List<Integer> divisors = factors.properDivisors();
+        int sum = 0;
+        for (Integer divisor : divisors) {
+            sum += divisor;
+        }
         return sum;
     }
 }

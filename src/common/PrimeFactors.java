@@ -40,6 +40,7 @@ public class PrimeFactors implements Iterable<Integer> {
         for (Map.Entry<Integer, Integer> factor : _factors.entrySet()) {
             divisors.addAll(factorMultiples(factor, divisors));
         }
+        divisors.remove(divisors.size() - 1);
 
         return divisors;
     }
