@@ -1,8 +1,7 @@
 package problems;
 
-import common.PrimeFactors;
-
-import java.util.List;
+import static common.NumberUtils.properDivisors;
+import static common.NumberUtils.sum;
 
 public class Problem21 implements Problem {
     @Override
@@ -36,12 +35,6 @@ public class Problem21 implements Problem {
     }
 
     private int sumProperDivisors(int a) {
-        PrimeFactors factors = PrimeFactors.of(a);
-        List<Integer> divisors = factors.properDivisors();
-        int sum = 0;
-        for (Integer divisor : divisors) {
-            sum += divisor;
-        }
-        return sum;
+        return sum(properDivisors(a));
     }
 }
