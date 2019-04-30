@@ -1,8 +1,10 @@
 package problems;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+
+import static common.BigIntegerUtils.factorial;
 
 public class Problem24 implements Problem {
     @Override
@@ -19,7 +21,7 @@ public class Problem24 implements Problem {
     }
 
     @Override
-    public Integer solution() {
+    public String solution() {
         /*
             Number of permutations of n-1 digits will tell us what the starting digit is,
             and the remainder after the starting digit can be used to determine which digit comes next.
@@ -43,13 +45,36 @@ public class Problem24 implements Problem {
 
             solution is 2103
          */
-        List<Integer> digits = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
-        List<Integer> target = new ArrayList<>();
+        PermutationIterator<Integer> permutationIterator = new PermutationIterator<>(1_000_000, List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
 
-        int permutationIndex = 999_999;
-        while (digits.size() != 0) {
+        final StringBuilder sb = new StringBuilder();
+        while (permutationIterator.hasNext()) {
+            sb.append(permutationIterator.next());
         }
+        return sb.toString();
+    }
+}
 
-        return 0;
+class PermutationIterator<E> implements Iterator<E> {
+
+    List<E> items;
+    int ordinal;
+
+    public PermutationIterator(int index, List<E> orderedItems) {
+        items = new ArrayList<>(orderedItems);
+        ordinal = index - 1;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return items.isEmpty() == false;
+    }
+
+    @Override
+    public E next() {
+        int permCount = factorial(items.size() - 1).intValue();
+        E value = items.remove(ordinal / permCount);
+        ordinal = ordinal % permCount;
+        return value;
     }
 }
